@@ -1,0 +1,91 @@
+polynomial 1
+
+espn = 8.85e-12; q1 = 2e-10; q2 = 3e-10;
+k = 1/(4*pi*espn);
+x = -0.2:0.01:0.2;
+y = -0.2:0.01:0.2;
+[X,Y] = meshgrid(x,y);
+r1 = sqrt((X+0.25).^2+y.^2);
+r2 = sqrt((X-0.25).^2+Y.^2);
+V = k*(q1./r1+q2./r2);
+mesh(X,Y,V);
+xlabel('x(m)');ylabel('y(m)');zlabel('V(V)')
+
+polynomial 2
+
+x = -2:0.2:2;
+y = -2:0.25:2;
+[x,y] = meshgrid(x,y);
+v = x.*exp(-x.^2-y.^2);
+mesh(x,y,v);
+xlabel('x');ylabel('y');zlabel('v')
+
+polnomial 3
+
+[x,y] = meshgrid(-5:.5:5);
+v = y.*sin(x)-x.*cos(y);
+mesh(x,y,v);
+xlabel('x(m)');ylabel('y(m)');zlabel('v(v)')
+
+constant total dopant diffusion
+
+
+clc;
+clear;
+sqDt=0.1e-6;
+x=0:0.001e-6:6e-6;
+S=1e14;
+CS=(1/(sqrt(pi)*sqDt))*exp(- x.^2/(4*sqDt*sqDt));
+dCdx=-x.*S.*exp(-x.^2/(4*sqDt*sqDt))/(2*sqrt(pi)*sqDt*sqDt*sqDt);
+plot(x, CS)
+title('Constant-Total-Dopant Diffusion');
+figure
+semilogy (x, CS)
+title('Constant-Total-Dopant Diffusion [Log Scale]');
+figure
+plot(x,dCdx)
+title('Gradient of the Diffusion Profile');
+
+
+constant surface concentration diffusion
+
+clc; 
+clear;
+Cs=1e19; 
+sqDt=0.1e-6;
+ x=0:0.001e-6:6e-6; 
+CCs=erfc(x/(2*sqDt)); 
+dCdx=-(Cs/(sqrt(pi)*sqDt))*exp(-x.^2/(4*sqDt*sqDt));
+plot(x, CCs) 
+title('Constant-Surface-Concentration Diffusion');
+figure
+semilogy(x, CCs) 
+title('Constant-Surface-Concentration Diffusion [Log Scale]');
+figure
+plot(x, dCdx)
+title('Gradient of the Diffusion Profile');
+
+surface integral
+
+syms x
+a = sec(x)+exp(x);
+b = int(int(a));
+
+volume integral
+
+syms x
+a = sin(x)+exp(x);
+b = int(int(int(a)));
+
+line integral
+
+syms x;
+f = sin(x)+exp(x);
+p=int(f);
+q=int(p);
+r=int(q);
+
+
+
+
+
