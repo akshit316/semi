@@ -67,24 +67,63 @@ title('Gradient of the Diffusion Profile');
 
 surface integral
 
+clc;
+clear;
+syms func(x,y);
+func(x,y)=sin(x)+cos(y);
+subplot(1,2,1);
+ezplot(func);
+funcix(x,y)=int(func(x,y),x);
+funciy(x,y)=int(funcix(x,y),y);
+subplot(1,2,2);
+ezplot(funciy)
+
 syms x
 a = sec(x)+exp(x);
 b = int(int(a));
 
 volume integral
-
-syms x
-a = sin(x)+exp(x);
-b = int(int(int(a)));
+clc;
+clear;
+syms func(x,y,z)
+func(x,y,z)   = sin(x) + exp(x)
+funcix(x,y,z) = int(func(x,y,z),x)
+funciy(x,y,z) = int(funcix(x,y,z),y)
+funciz(x,y,z) = int(funciy(x,y,z),z)
+fimplicit3(funciz(x,y,z))
 
 line integral
 
-syms x;
-f = sin(x)+exp(x);
-p=int(f);
-q=int(p);
-r=int(q);
+syms func(x)
+func(x) = sin(x) + exp(x)
+subplot(1,2,1)
+ezplot(func)
+funci(x) = int(func(x))
+subplot(1,2,2)
+ezplot(funci)
 
+oxidation
+
+ clc;
+clear;
+% Dry
+A=0.04e-6;
+B=0.045e-6;
+tau=0.027;
+x=0.1:0.1:100;
+t=(A/B)*x-tau;
+loglog(x,t,'linewidth',2);
+% Wet
+A1=0.05e-6;
+B1=0.72e-6;
+tau1=0;
+t1=(A1/B1)*x-tau1;
+hold on
+loglog(x,t1,'linewidth',2);
+title('Dry and Wet Oxidation');
+xlabel('Oxidation Time (hrs)');
+ylabel('Oxide Thickness (um)');
+grid on
 
 
 
